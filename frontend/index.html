@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Background Remover</title>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <!-- Page Container -->
+  <div class="page-wrapper">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="title">Background Remover</h1>
+      <p class="subtitle">Remove backgrounds from images and use them anywhere.</p>
+    </header>
+
+    <!-- Main Section -->
+    <main class="main-content">
+      <!-- Upload Area -->
+      <section class="upload-box">
+        <!-- Hidden file input, triggered by label -->
+        <input type="file" id="imageInput" hidden />
+        <label for="imageInput" class="upload-btn">Upload Image</label>
+
+        <!-- Drag and drop helper text -->
+        <p class="drop-text">Or drop an image here</p>
+
+        <!-- Action buttons -->
+        <button id="removeBtn" class="action-btn">Remove Background</button>
+        <button id="downloadBtn" class="action-btn" disabled>Download</button>
+      </section>
+      
+      <!-- Preview & Info -->
+      <section class="info-box">
+        <div class="preview-container">
+          <!-- Image is dynamically shown after upload -->
+          <img id="previewImage" alt="">
+        </div>
+        <p class="info-text">
+          Use your image for profile pictures, e-commerce, or creative design. Background-free in seconds.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <!-- Main JavaScript file -->
+  <script src="scripts/script.js"></script>
+</body>
+</html>
