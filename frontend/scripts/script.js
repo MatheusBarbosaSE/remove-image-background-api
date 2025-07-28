@@ -4,13 +4,19 @@ const uploadInput = document.getElementById("imageInput");
 const removeBtn = document.getElementById("removeBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 const previewImage = document.getElementById("previewImage");
+const dropArea = document.getElementById("dropArea");
 
 let uploadedImage = null;
 
-// When user selects a file
+// Handle file selection
 uploadInput.addEventListener("change", function (event) {
   const file = event.target.files[0];
   if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Please upload a valid image file.");
+    return;
+  }
 
   const reader = new FileReader();
   reader.onload = function (e) {
@@ -20,7 +26,7 @@ uploadInput.addEventListener("change", function (event) {
   reader.readAsDataURL(file);
 });
 
-// When user clicks "Remove Background"
+// Handle "Remove Background" button click
 removeBtn.addEventListener("click", async () => {
   if (!uploadedImage) {
     alert("Please upload an image first.");
@@ -36,30 +42,33 @@ removeBtn.addEventListener("click", async () => {
       body: formData,
     });
 
-    if (!response.ok) throw new Error("Failed to remove background");
+    if (!response.ok) {
+      throw new Error(`Failed with status ${response.status}`);
+    }
 
     const blob = await response.blob();
     const objectURL = URL.createObjectURL(blob);
 
+    // Wait for image to load before enabling download
+    previewImage.onload = () => {
+      downloadBtn.disabled = false;
+      downloadBtn.onclick = () => {
+        const a = document.createElement("a");
+        a.href = objectURL;
+        a.download = "no-background.png";
+        a.click();
+      };
+    };
+
     previewImage.src = objectURL;
 
-    // Enable download
-    downloadBtn.disabled = false;
-    downloadBtn.onclick = () => {
-      const a = document.createElement("a");
-      a.href = objectURL;
-      a.download = "no-background.png";
-      a.click();
-    };
   } catch (err) {
     alert("An error occurred while removing the background.");
-    console.error(err);
+    console.error("Remove background error:", err);
   }
 });
 
 // Drag & Drop support
-const dropArea = document.getElementById("dropArea");
-
 ["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
   dropArea.addEventListener(eventName, e => e.preventDefault());
   dropArea.addEventListener(eventName, e => e.stopPropagation());
@@ -69,9 +78,12 @@ const dropArea = document.getElementById("dropArea");
 dropArea.addEventListener("dragover", () => {
   dropArea.classList.add("highlight");
 });
+
 dropArea.addEventListener("dragleave", () => {
   dropArea.classList.remove("highlight");
 });
+
+// Handle drop
 dropArea.addEventListener("drop", e => {
   dropArea.classList.remove("highlight");
   const file = e.dataTransfer.files[0];
