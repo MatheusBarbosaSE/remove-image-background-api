@@ -115,3 +115,9 @@ body {
     transform: scale(1.03);
     transition: all 0.2s ease;
 }
+
+/* Drag & Drop */
+.upload-box.highlight {
+  border: 2px dashed #5da3fa;
+  background-color: #eef7ff;
+}

@@ -56,3 +56,31 @@ removeBtn.addEventListener("click", async () => {
     console.error(err);
   }
 });
+
+// Drag & Drop support
+const dropArea = document.getElementById("dropArea");
+
+["dragenter", "dragover", "dragleave", "drop"].forEach(eventName => {
+  dropArea.addEventListener(eventName, e => e.preventDefault());
+  dropArea.addEventListener(eventName, e => e.stopPropagation());
+});
+
+// Visual feedback
+dropArea.addEventListener("dragover", () => {
+  dropArea.classList.add("highlight");
+});
+dropArea.addEventListener("dragleave", () => {
+  dropArea.classList.remove("highlight");
+});
+dropArea.addEventListener("drop", e => {
+  dropArea.classList.remove("highlight");
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (event) {
+    previewImage.src = event.target.result;
+    uploadedImage = file;
+  };
+  reader.readAsDataURL(file);
+});
