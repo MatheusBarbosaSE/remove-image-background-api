@@ -59,3 +59,35 @@ removeBtn.addEventListener("click", async () => {
         removeBtn.disabled = false;
     }
 });
+
+const dropArea = document.getElementById("dropArea");
+
+// Prevent default behaviors (avoid opening file in browser)
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, e => e.preventDefault());
+    document.body.addEventListener(eventName, e => e.preventDefault());
+});
+
+// Highlight when file is dragged over
+['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, () => dropArea.classList.add('dragover'));
+});
+['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, () => dropArea.classList.remove('dragover'));
+});
+
+// Handle dropped file
+dropArea.addEventListener('drop', e => {
+    const file = e.dataTransfer.files[0];
+    if (!file) return;
+
+    uploadedFile = file;
+    removeBtn.disabled = false;
+
+    const reader = new FileReader();
+    reader.onload = e => {
+        previewArea.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+        downloadBtn.style.display = "none";
+    };
+    reader.readAsDataURL(file);
+});

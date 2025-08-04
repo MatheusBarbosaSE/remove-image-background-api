@@ -22,19 +22,23 @@
         <div class="hero-content">
             <h1>Remove Backgrounds Instantly</h1>
             <p>Upload your image and get a transparent background in seconds.</p>
-            <label class="upload-btn">
-                Upload Image
-                <input type="file" id="imageInput" hidden accept="image/*">
-            </label>
-            <div class="preview-area" id="previewArea">
-                <p>No image selected</p>
-            </div>
-            <div class="action-buttons">
-                <button id="removeBtn" disabled>Remove Background</button>
-                <a id="downloadBtn" style="display:none;" download="result.png">Download PNG</a>
+            <!-- Upload + Drag & Drop Area -->
+            <div id="dropArea" class="drop-area">
+                <label class="upload-btn" id="uploadLabel">
+                    Upload Image
+                    <input type="file" id="imageInput" hidden accept="image/*">
+                </label>
+                <div class="preview-area" id="previewArea">
+                    <p>Drag & drop an image here or click "Upload Image"</p>
+                </div>
+                <div class="action-buttons">
+                    <button id="removeBtn" disabled>Remove Background</button>
+                    <a id="downloadBtn" style="display:none;" download="result.png">Download PNG</a>
+                </div>
             </div>
         </div>
     </section>
+
     <!-- How It Works Section -->
     <section class="how-it-works">
         <h2>How Does It Work?</h2>
@@ -74,7 +78,6 @@
     <section class="cta">
         <h2>Start Removing Backgrounds for Free</h2>
         <p>Powered by our open-source API.</p>
-        <a href="#imageInput" class="cta-btn">Try It Now</a>
     </section>
 
     <script src="script.js"></script>

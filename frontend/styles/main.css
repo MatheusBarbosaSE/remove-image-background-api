@@ -256,3 +256,16 @@ body {
 #downloadBtn:hover {
     background-color: #218838;
 }
+
+/* Drag & Drop Area */
+.drop-area {
+    text-align: center;
+    margin-top: 1.5rem;
+    transition: background 0.3s;
+}
+
+/* Highlight only when dragging over */
+.drop-area.dragover {
+    background: rgba(0, 119, 255, 0.05);
+    border-radius: 12px;
+}
