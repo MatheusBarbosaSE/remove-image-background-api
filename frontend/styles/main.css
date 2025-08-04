@@ -217,3 +217,42 @@ body {
 .benefit:hover {
     transform: translateY(-5px);
 }
+
+/* Action buttons section */
+.action-buttons {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.action-buttons button,
+.action-buttons a {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+    text-decoration: none;
+    color: white;
+}
+
+#removeBtn {
+    background-color: #0077ff;
+}
+#removeBtn:disabled {
+    background-color: #a0c8ff;
+    cursor: not-allowed;
+}
+
+#removeBtn:hover:enabled {
+    background-color: #005bcc;
+}
+
+#downloadBtn {
+    background-color: #28a745;
+}
+#downloadBtn:hover {
+    background-color: #218838;
+}
